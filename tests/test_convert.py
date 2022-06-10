@@ -13,11 +13,12 @@ def create_df(buffer: StringIO) -> None:
 def test_polars_read_csv() -> None:
     filepath = "./tests/test.xlsx"
 
-    buffer = excel_to_csv_buffer(filepath)
-    create_df(buffer)
+    buffers = (
+        excel_to_csv_buffer(filepath),
+        excel_to_csv_buffer(filepath, sheet_name="Sheet1"),
+        excel_to_csv_buffer(filepath, sheet_index=0),
+        excel_to_csv_buffer(filepath, openpyxl_options={}),
+    )
 
-    buffer = excel_to_csv_buffer(filepath, sheet_name="Sheet1")
-    create_df(buffer)
-
-    buffer = excel_to_csv_buffer(filepath, sheet_index=0)
-    create_df(buffer)
+    for buffer in buffers:
+        create_df(buffer)
