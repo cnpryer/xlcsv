@@ -1,19 +1,20 @@
 ACTIVATE = source venv/bin/activate &&
 
-.PHONY: help clean lint fmt mt-check test pre-commit
+.PHONY: help clean lint fmt mt-check test pre-commit bench
 
 help:
 	@echo ""
 	@echo "Use 'make <command>'"
 	@echo ""
 	@echo "commands"
-	@echo "  venv              create venv and install dependencies"
-	@echo "  clean              remove cleanable files"
-	@echo "  lint               run linters"
-	@echo "  fmt                run formaters"
-	@echo "  fmt-check          run formatting check"
-	@echo "  test               run all tests"
-	@echo "  pre-commit         run pre-commit standardization"
+	@echo "  venv				create venv and install dependencies"
+	@echo "  clean				remove cleanable files"
+	@echo "  lint				run linters"
+	@echo "  fmt				run formaters"
+	@echo "  fmt-check			run formatting check"
+	@echo "  test				run all tests"
+	@echo "  pre-commit			run pre-commit standardization"
+	@echo "  bench				run tests/bench/*"
 	@echo ""
 	@echo "Check the Makefile to know exactly what each target is doing."
 
@@ -48,3 +49,6 @@ pre-commit: test fmt lint
 	@$(ACTIVATE) poetry run mypy \
 		xlcsv \
 		tests
+
+bench:
+	@$(ACTIVATE) poetry run python tests/bench/excel_io.py
