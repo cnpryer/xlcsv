@@ -1,2 +1,2 @@
-class OpenpyxlException(Exception):
+class FileExtensionException(Exception):
     pass
