@@ -7,7 +7,7 @@ from typing import BinaryIO, Optional, Union
 from openpyxl import load_workbook  # type: ignore
 
 from xlcsv import utils
-from xlcsv.error import OpenpyxlException
+from xlcsv.error import FileExtensionException
 
 # default .xlsx sheet name
 DEFAULT_EXCEL_SHEET_NAME = "Sheet1"
@@ -48,7 +48,7 @@ def excel_to_csv_buffer(
         file_ext = os.path.splitext(file_like)[1]
 
         if file_ext not in EXCEL_FILE_EXTENSIONS:
-            raise OpenpyxlException("File extension not allowed.")
+            raise FileExtensionException("File extension not allowed.")
 
     # create book
     book = load_workbook(file_like, **openpyxl_options)
