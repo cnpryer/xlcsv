@@ -15,9 +15,7 @@ def test_polars_read_csv() -> None:
 
     buffers = (
         excel_to_csv_buffer(filepath),
-        excel_to_csv_buffer(filepath, sheet_name="Sheet1"),
         excel_to_csv_buffer(filepath, sheet_index=0),
-        excel_to_csv_buffer(filepath, openpyxl_options={}),
     )
 
     for buffer in buffers:
