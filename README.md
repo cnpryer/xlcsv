@@ -1,3 +1,6 @@
+[![ci](https://github.com/cnpryer/xlcsv/workflows/ci/badge.svg)](https://github.com/cnpryer/xlcsv/actions)
+[![PyPI Latest Release](https://img.shields.io/pypi/v/xlcsv.svg)](https://pypi.org/project/xlcsv/)
+
 # xlcsv
 
 A Python micropackage for consuming Excel as CSV.
