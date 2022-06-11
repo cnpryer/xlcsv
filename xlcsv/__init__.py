@@ -1,3 +1,4 @@
-from xlcsv.io import excel_to_csv_buffer  # noqa: F401
+from xlcsv.io import excel_to_csv_buffer
 
-__version__ = "0.2.1"
+__all__ = ["excel_to_csv_buffer"]
+__version__ = "0.2.2"
