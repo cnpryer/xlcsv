@@ -10,3 +10,7 @@ import xlcsv
 
 buffer = xlcsv.excel_to_csv_buffer("my-file.xlsx")
 ```
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
