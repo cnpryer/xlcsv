@@ -58,9 +58,7 @@ def excel_to_csv_buffer(
     buffer = StringIO()
     writer = csv.writer(buffer, quoting=csv.QUOTE_ALL)
     for row in sheet.iter_rows():
-        data = []
-        for cell in row:
-            data.append(cell.value)
+        data = [cell.value for cell in row]
         writer.writerow(data)
 
     # reset buffer
