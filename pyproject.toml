@@ -18,7 +18,7 @@ black = "^22.3.0"
 mypy = "^0.961"
 isort = "^5.10.1"
 polars = "^0.13.44"
-pre-commit = "^2.19.0"
+pre-commit = "^2.20.0"
 pandas = "^1.4.2"
 
 [build-system]
