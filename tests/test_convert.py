@@ -1,8 +1,9 @@
 from io import StringIO
+from pathlib import Path
 
 import polars as pl
 
-from xlcsv.io import excel_to_csv_buffer
+from xlcsv.io import to_csv_buffer
 
 
 def create_df(buffer: StringIO) -> None:
@@ -11,13 +12,11 @@ def create_df(buffer: StringIO) -> None:
 
 
 def test_polars_read_csv() -> None:
-    filepath = "./tests/test.xlsx"
+    filepath = Path(__file__).parent / "test.xlsx"
 
     buffers = (
-        excel_to_csv_buffer(filepath),
-        excel_to_csv_buffer(filepath, sheet_name="Sheet1"),
-        excel_to_csv_buffer(filepath, sheet_index=0),
-        excel_to_csv_buffer(filepath, openpyxl_options={}),
+        to_csv_buffer(filepath),
+        to_csv_buffer(filepath, sheet_index=0),
     )
 
     for buffer in buffers:

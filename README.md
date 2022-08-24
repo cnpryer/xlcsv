@@ -10,8 +10,21 @@ Build CSV `StringIO` from Excel files.
 ```py
 import xlcsv
 
+buffer = xlcsv.to_csv_buffer("my-file.xlsx")
+```
 
-buffer = xlcsv.excel_to_csv_buffer("my-file.xlsx")
+Read Excel files without Excel using a `DataFrame` library.
+
+```py
+# ...
+
+import pandas as pd
+
+df = pd.read_csv(buffer)
+
+import polars as pl
+
+df = pl.read_csv(buffer)
 ```
 
 ## Contributing
