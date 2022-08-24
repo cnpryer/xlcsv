@@ -43,7 +43,7 @@ fmt-check: .venv
 test: .venv
 	@poetry run pytest
 
-pre-commit: test fmt lint
+pre-commit: test fmt-check lint
 	@poetry run mypy \
 		xlcsv \
 		tests

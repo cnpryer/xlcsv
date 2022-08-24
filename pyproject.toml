@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "xlcsv"
-version = "0.2.3"
+version = "0.3.0"
 description = "A Python micropackage for consuming Excel as CSV."
 repository = "https://github.com/cnpryer/xlcsv.git"
 readme = "./README.md"

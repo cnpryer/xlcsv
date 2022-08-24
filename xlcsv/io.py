@@ -14,7 +14,7 @@ from xlcsv.error import FileExtensionException
 DEFAULT_EXCEL_SHEET_NAME = "Sheet1"
 DEFAULT_SHEET_INDEX = 0
 
-# default openpyxl config
+# Default openpyxl config
 DEFAULT_OPENPYXL_OPTIONS = {"read_only": True, "data_only": True}
 
 # Supported file extensions
@@ -28,6 +28,7 @@ def to_csv_buffer(
     openpyxl_options: Optional[dict] = dict(DEFAULT_OPENPYXL_OPTIONS),
 ) -> StringIO:
     """Build a reset StringIO buffer of CSV data from Excel.
+
     Args:
         file_like (str | BytesIO | Path | BinaryIO | bytes):
             Path to a file or a file-like object. Objects with a
@@ -53,7 +54,7 @@ def to_csv_buffer(
 
         file_like = file_like.as_posix()
 
-    # create book
+    # Create book
     book = load_workbook(file_like, **openpyxl_options)
     sheet = book[sheet_name or sheet_index or DEFAULT_EXCEL_SHEET_NAME]
 
