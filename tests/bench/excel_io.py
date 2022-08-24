@@ -4,17 +4,15 @@ from io import BytesIO, StringIO
 from pathlib import Path
 from typing import BinaryIO, Callable, Union
 
-import pandas as pd  # type ignore
+import pandas as pd
 import polars as pl
 
-from xlcsv import excel_to_csv_buffer
+from xlcsv import to_csv_buffer
 
 DF_N = 10_000
 N_TESTS = 1_000
-INSTANCE_DIRPATH = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "instance"
-)
-EXCEL_FILEPATH = os.path.join(INSTANCE_DIRPATH, "df.xlsx")
+INSTANCE_DIRPATH = Path(__file__).parent / "instance"
+EXCEL_FILEPATH = INSTANCE_DIRPATH / "df.xlsx"
 
 
 if not os.path.exists(INSTANCE_DIRPATH):
@@ -48,10 +46,10 @@ def bench_excel_file(
 
 
 if __name__ == "__main__":
-    # pandas DataFrame, number of tests to run
+    # Pandas DataFrame, number of tests to run
     df, n = create_df(), 10
 
-    # test: (fn name, fn)
+    # Test: (fn name, fn)
     excel_io_tests = (
         # save .xslx (pandas)
         ("pd.to_excel", df.to_excel),
@@ -60,13 +58,13 @@ if __name__ == "__main__":
         # read .xlsx (polars native)
         ("pl.read_excel", pl.read_excel),
         # read .xslx (xlcsv)
-        ("xlcsv.excel_to_csv_buffer", excel_to_csv_buffer),
+        ("xlcsv.to_csv_buffer", to_csv_buffer),
     )
 
-    # test: (fn name, fn, buffer fn)
+    # Test: (fn name, fn, buffer fn)
     with_buffer_tests = (
-        # read .xlsx as .csv from buffer (polars)
-        ("pl.read_csv", pl.read_csv, excel_to_csv_buffer),
+        # Read .xlsx as .csv from buffer (polars)
+        ("pl.read_csv", pl.read_csv, to_csv_buffer),
     )
 
     for name, fn in excel_io_tests:
