@@ -8,9 +8,9 @@ A Python micropackage for consuming Excel as CSV.
 Build CSV `StringIO` from Excel files.
 
 ```py
-import xlcsv
+from xlcsv import to_csv_buffer
 
-buffer = xlcsv.to_csv_buffer("my-file.xlsx")
+buffer = to_csv_buffer("my-file.xlsx")
 ```
 
 Read Excel files without Excel using a `DataFrame` library.
