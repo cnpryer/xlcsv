@@ -19,7 +19,7 @@ mypy = "^0.971"
 isort = "^5.10.1"
 polars = "^0.14.5"
 pre-commit = "^2.19.0"
-pandas = "^1.4.2"
+pandas = "^1.5.3"
 xlsx2csv = "^0.8.0"
 
 [build-system]
