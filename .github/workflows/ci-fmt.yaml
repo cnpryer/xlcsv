@@ -1,19 +1,21 @@
-name: ci
+name: fmt-check
 
 on:
   push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+    branches:
+      - "master"
     paths:
       - 'src/**'
       - 'tests/**'
-      - 'pyproject.toml'
-      - 'poetry.lock'
-      - '.github/workflows/ci.yaml'
+      - '.github/workflows/ci-fmt.yaml'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - '.github/workflows/ci-fmt.yaml'
 
 jobs:
-  tests:
+  default:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -51,14 +53,5 @@ jobs:
       - name: Install library
         run: poetry install --no-interaction
 
-      - name: Run lint
-        run: make lint
-
-      - name: Run mypy
-        run: make lint-type
-
       - name: Run fmt check
         run: make fmt-check
-
-      - name: Run tests
-        run: make test
