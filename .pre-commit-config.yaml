@@ -1,9 +1,26 @@
 repos:
   - repo: local
     hooks:
-      - id: make
-        name: make
-        entry: make pre-commit
+      - id: lint
+        name: lint
+        entry: make lint && make lint-type
         language: system
+        types: [python]
+        files: pyproject\.toml|\.py$
         pass_filenames: false
-        always_run: true
+
+      - id: fmt-check
+        name: fmt-check
+        entry: make fmt-check
+        language: system
+        types: [python]
+        files: pyproject\.toml|\.py$
+        pass_filenames: false
+        
+      - id: test
+        name: test
+        entry: make test
+        language: system
+        types: [python]
+        files: pyproject\.toml|\.py$
+        pass_filenames: false

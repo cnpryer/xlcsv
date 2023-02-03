@@ -27,9 +27,10 @@ clean:
 	-@rm -fr `find . -name __pycache__`
 	-@rm -rf .pytest_cache
 	-@rm -rf .mypy_cache
+	-@rm -rf .ruff_cache
 
 lint: .venv
-	@poetry run flake8 \
+	@poetry run ruff \
 		src \
 		tests
 
