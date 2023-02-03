@@ -1,10 +1,12 @@
+from __future__ import annotations
+
 import os
 import timeit
 from io import BytesIO, StringIO
 from pathlib import Path
-from typing import BinaryIO, Callable, Union
+from typing import BinaryIO, Callable
 
-import pandas as pd
+import pandas as pd  # type: ignore
 import polars as pl
 
 from xlcsv import to_csv_buffer
@@ -14,20 +16,28 @@ N_TESTS = 1_000
 INSTANCE_DIRPATH = Path(__file__).parent / "instance"
 EXCEL_FILEPATH = INSTANCE_DIRPATH / "df.xlsx"
 
+FileLikeType = BytesIO | BinaryIO | StringIO | str | Path
+
 
 if not os.path.exists(INSTANCE_DIRPATH):
     os.mkdir(INSTANCE_DIRPATH)
 
 
 def create_df(size: int = DF_N) -> pd.DataFrame:
-    df = pd.DataFrame({_: list(map(str, range(size))) for _ in "abcdefg"})
+    df = pd.DataFrame({ch: list(map(str, range(size))) for ch in "abcdefg"})
 
     return df
 
 
-def preproc(
-    file_like: Union[BytesIO, BinaryIO, StringIO, str, Path]
-) -> Union[BytesIO, BinaryIO, StringIO, str, Path]:
+def bench_excel_file(
+    fn: Callable,
+    file_like: FileLikeType = EXCEL_FILEPATH,
+    n_tests: int = N_TESTS,
+) -> float:
+    return timeit.timeit(lambda: fn(preproc(file_like)), number=n_tests)
+
+
+def preproc(file_like: FileLikeType) -> FileLikeType:
     if isinstance(file_like, (str, Path)):
         return file_like
 
@@ -37,15 +47,7 @@ def preproc(
     return buffer
 
 
-def bench_excel_file(
-    fn: Callable,
-    file_like: Union[str, BytesIO, Path, BinaryIO, StringIO] = EXCEL_FILEPATH,
-    n_tests: int = N_TESTS,
-) -> float:
-    return timeit.timeit(lambda: fn(preproc(file_like)), number=n_tests)
-
-
-if __name__ == "__main__":
+def main() -> None:
     # Pandas DataFrame, number of tests to run
     df, n = create_df(), 10
 
@@ -75,3 +77,7 @@ if __name__ == "__main__":
         buffer = buff(EXCEL_FILEPATH)
         res = bench_excel_file(fn, file_like=buffer, n_tests=n)
         print(name, res)
+
+
+if __name__ == "__main__":
+    main()
