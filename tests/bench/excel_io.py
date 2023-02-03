@@ -6,7 +6,7 @@ from io import BytesIO, StringIO
 from pathlib import Path
 from typing import BinaryIO, Callable
 
-import pandas as pd
+import pandas as pd  # type: ignore
 import polars as pl
 
 from xlcsv import to_csv_buffer
