@@ -1,8 +1,10 @@
+from __future__ import annotations
+
 import os
 import timeit
 from io import BytesIO, StringIO
 from pathlib import Path
-from typing import BinaryIO, Callable, Union
+from typing import BinaryIO, Callable
 
 import pandas as pd
 import polars as pl
@@ -26,8 +28,8 @@ def create_df(size: int = DF_N) -> pd.DataFrame:
 
 
 def preproc(
-    file_like: Union[BytesIO, BinaryIO, StringIO, str, Path]
-) -> Union[BytesIO, BinaryIO, StringIO, str, Path]:
+    file_like: BytesIO | BinaryIO | StringIO | str | Path
+) -> BytesIO | BinaryIO | StringIO | str | Path:
     if isinstance(file_like, (str, Path)):
         return file_like
 
@@ -39,7 +41,7 @@ def preproc(
 
 def bench_excel_file(
     fn: Callable,
-    file_like: Union[str, BytesIO, Path, BinaryIO, StringIO] = EXCEL_FILEPATH,
+    file_like: str | BytesIO | Path | BinaryIO | StringIO = EXCEL_FILEPATH,
     n_tests: int = N_TESTS,
 ) -> float:
     return timeit.timeit(lambda: fn(preproc(file_like)), number=n_tests)
