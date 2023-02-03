@@ -1,5 +1,5 @@
-[![ci](https://github.com/cnpryer/xlcsv/workflows/ci/badge.svg)](https://github.com/cnpryer/xlcsv/actions)
-[![PyPI Latest Release](https://img.shields.io/pypi/v/xlcsv.svg)](https://pypi.org/project/xlcsv/)
+[![tests](https://github.com/cnpryer/xlcsv/actions/workflows/ci-test.yaml/badge.svg)](https://github.com/cnpryer/xlcsv/actions/workflows/ci-test.yaml)
+[![pypi-release](https://img.shields.io/pypi/v/xlcsv.svg)](https://pypi.org/project/xlcsv/)
 
 # xlcsv
 
