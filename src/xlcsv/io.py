@@ -3,7 +3,7 @@ from __future__ import annotations
 import csv
 from io import BytesIO, StringIO
 from pathlib import Path
-from typing import BinaryIO, Optional
+from typing import BinaryIO
 
 from openpyxl import load_workbook  # type: ignore
 
@@ -23,9 +23,9 @@ EXCEL_FILE_EXTENSIONS = {".xlsx"}
 
 def to_csv_buffer(
     file_like: str | BytesIO | Path | BinaryIO | bytes,
-    sheet_name: Optional[str] = None,
-    sheet_index: Optional[int] = None,
-    openpyxl_options: Optional[dict] = dict(DEFAULT_OPENPYXL_OPTIONS),
+    sheet_name: str | None = None,
+    sheet_index: int | None = None,
+    openpyxl_options: dict | None = dict(DEFAULT_OPENPYXL_OPTIONS),
 ) -> StringIO:
     """Build a reset StringIO buffer of CSV data from Excel.
 
@@ -34,11 +34,11 @@ def to_csv_buffer(
             Path to a file or a file-like object. Objects with a
             ``read()`` method, such as a file handler
             (e.g. via builtin ``open`` function) or ``BytesIO``.
-        sheet_name (Optional[str], optional): Name of sheet to read.
+        sheet_name (str | None, optional): Name of sheet to read.
             Defaults to None.
-        sheet_index (Optional[int], optional): Position of sheet in book.
+        sheet_index (int | None, optional): Position of sheet in book.
             Defaults to None.
-        openpyxl_options (Optional[dict], optional): Extra openpyxl options
+        openpyxl_options (dict | None, optional): Extra openpyxl options
             for parsing Excel files.
     Returns:
         StringIO: Reset String IO buffer.
