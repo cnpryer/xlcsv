@@ -6,8 +6,11 @@ on:
   pull_request:
     branches: [master]
     paths:
-      - 'xlcsv/**'
+      - 'src/**'
       - 'tests/**'
+      - 'pyproject.toml'
+      - 'poetry.lock'
+      - '.github/workflows/ci.yaml'
 
 jobs:
   tests:
@@ -29,7 +32,7 @@ jobs:
       - name: Install and configure Poetry
         uses: snok/install-poetry@v1
         with:
-          version: 1.1.13
+          version: 1.3.2
           virtualenvs-create: true
           virtualenvs-in-project: true
           installer-parallel: true
@@ -49,19 +52,13 @@ jobs:
         run: poetry install --no-interaction
 
       - name: Run lint
-        run: |
-          poetry run flake8 \
-          xlcsv \
-          tests
+        run: make lint
 
       - name: Run mypy
-        run: |
-          poetry run mypy \
-          xlcsv \
-          tests
+        run: make lint-type
 
       - name: Run fmt check
-        run: poetry run black . --check
+        run: make fmt-check
 
       - name: Run tests
-        run: poetry run pytest
+        run: make test

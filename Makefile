@@ -1,4 +1,4 @@
-.PHONY: help clean lint fmt mt-check test pre-commit bench
+.PHONY: help clean lint fmt mt-check test pre-commit bench lint-type
 
 help:
 	@echo ""
@@ -7,7 +7,8 @@ help:
 	@echo "commands"
 	@echo "  .venv			    create venv and install dependencies"
 	@echo "  clean				remove cleanable files"
-	@echo "  lint				run linters"
+	@echo "  lint				run linter"
+	@echo "  lint-type			run type-checker"
 	@echo "  fmt				run formaters"
 	@echo "  fmt-check			run formatting check"
 	@echo "  test				run all tests"
@@ -29,7 +30,12 @@ clean:
 
 lint: .venv
 	@poetry run flake8 \
-		xlcsv \
+		src \
+		tests
+
+lint-type: .venv
+	@poetry run mypy \
+		src \
 		tests
 
 fmt: .venv
@@ -43,10 +49,8 @@ fmt-check: .venv
 test: .venv
 	@poetry run pytest
 
-pre-commit: test fmt-check lint
-	@poetry run mypy \
-		xlcsv \
-		tests
+pre-commit: test fmt-check lint lint-type
+	
 
 bench:
 	@poetry run python tests/bench/excel_io.py
