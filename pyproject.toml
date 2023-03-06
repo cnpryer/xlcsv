@@ -19,7 +19,7 @@ pre-commit = "^2.19.0"
 xlsx2csv = "^0.8.0"
 polars = "^0.16.2"
 pandas = "^1.5.3"
-mypy = "^0.991"
+mypy = ">=0.991,<1.1"
 ruff = "^0.0.240"
 
 [build-system]
