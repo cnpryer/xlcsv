@@ -20,7 +20,7 @@ xlsx2csv = "^0.8.0"
 polars = "^0.16.2"
 pandas = "^1.5.3"
 mypy = "^0.991"
-ruff = "^0.0.240"
+ruff = ">=0.0.240,<0.0.255"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
