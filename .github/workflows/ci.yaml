@@ -1,4 +1,4 @@
-name: fmt-check
+name: ci (fmt, lint, test)
 
 on:
   push:
@@ -7,12 +7,12 @@ on:
     paths:
       - 'src/**'
       - 'tests/**'
-      - '.github/workflows/ci-fmt.yaml'
+      - '.github/workflows/ci.yaml'
   pull_request:
     paths:
       - 'src/**'
       - 'tests/**'
-      - '.github/workflows/ci-fmt.yaml'
+      - '.github/workflows/ci.yaml'
 
 jobs:
   default:
@@ -30,6 +30,7 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+      - uses: Swatinem/rust-cache@v1
 
       - name: Setup python
         uses: actions/setup-python@v1
@@ -37,16 +38,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
           architecture: x64
 
-      - name: Install and configure Poetry
-        uses: snok/install-poetry@v1
-        with:
-          version: 1.3.2
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-          installer-parallel: true
-
       - name: Install dependencies
-        run: cargo install --git https://github.com/mitsuhiko/rye -branch main
+        run: cargo install --git https://github.com/mitsuhiko/rye
 
       - name: Sync Python environment
         run: rye sync
@@ -59,3 +52,7 @@ jobs:
 
       - name: Run tests
         run: make test
+
+      # bench for lols
+      - name: Run bench
+        run: make bench

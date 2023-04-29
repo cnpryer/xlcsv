@@ -16,4 +16,4 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = ["pytest~=7.3.1", "ruff~=0.0.263", "black~=23.3.0", "mypy~=1.2.0", "polars~=0.17.9"]
+dev-dependencies = ["pytest~=7.3.1", "ruff~=0.0.263", "black~=23.3.0", "mypy~=1.2.0", "polars~=0.17.9", "pandas~=2.0.1", "xlsx2csv~=0.8.1"]

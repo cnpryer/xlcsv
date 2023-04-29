@@ -36,7 +36,7 @@ fmt: .venv lint
 
 fmt-check: .venv
 	@rye run ruff check --select I .
-	@rye run black --check
+	@rye run black . --check
 
 test: .venv
 	@rye run pytest

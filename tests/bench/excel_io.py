@@ -8,7 +8,6 @@ from typing import BinaryIO, Callable
 
 import pandas as pd  # type: ignore
 import polars as pl
-
 from xlcsv import to_csv_buffer
 
 DF_N = 10_000
@@ -21,30 +20,6 @@ FileLikeType = BytesIO | BinaryIO | StringIO | str | Path
 
 if not os.path.exists(INSTANCE_DIRPATH):
     os.mkdir(INSTANCE_DIRPATH)
-
-
-def create_df(size: int = DF_N) -> pd.DataFrame:
-    df = pd.DataFrame({ch: list(map(str, range(size))) for ch in "abcdefg"})
-
-    return df
-
-
-def bench_excel_file(
-    fn: Callable,
-    file_like: FileLikeType = EXCEL_FILEPATH,
-    n_tests: int = N_TESTS,
-) -> float:
-    return timeit.timeit(lambda: fn(preproc(file_like)), number=n_tests)
-
-
-def preproc(file_like: FileLikeType) -> FileLikeType:
-    if isinstance(file_like, (str, Path)):
-        return file_like
-
-    buffer = file_like
-    buffer.seek(0)
-
-    return buffer
 
 
 def main() -> None:
@@ -77,6 +52,30 @@ def main() -> None:
         buffer = buff(EXCEL_FILEPATH)
         res = bench_excel_file(fn, file_like=buffer, n_tests=n)
         print(name, res)
+
+
+def bench_excel_file(
+    fn: Callable,
+    file_like: FileLikeType = EXCEL_FILEPATH,
+    n_tests: int = N_TESTS,
+) -> float:
+    return timeit.timeit(lambda: fn(preproc(file_like)), number=n_tests)
+
+
+def preproc(file_like: FileLikeType) -> FileLikeType:
+    if isinstance(file_like, (str, Path)):
+        return file_like
+
+    buffer = file_like
+    buffer.seek(0)
+
+    return buffer
+
+
+def create_df(size: int = DF_N) -> pd.DataFrame:
+    df = pd.DataFrame({ch: list(map(str, range(size))) for ch in "abcdefg"})
+
+    return df
 
 
 if __name__ == "__main__":

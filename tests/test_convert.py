@@ -2,13 +2,7 @@ from io import StringIO
 from pathlib import Path
 
 import polars as pl
-
 from xlcsv.io import to_csv_buffer
-
-
-def create_df(buffer: StringIO) -> None:
-    df = pl.read_csv(buffer)
-    assert not df.is_empty()
 
 
 def test_polars_read_csv() -> None:
@@ -21,3 +15,8 @@ def test_polars_read_csv() -> None:
 
     for buffer in buffers:
         create_df(buffer)
+
+
+def create_df(buffer: StringIO) -> None:
+    df = pl.read_csv(buffer)
+    assert not df.is_empty()
