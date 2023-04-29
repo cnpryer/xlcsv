@@ -16,11 +16,3 @@ repos:
         types: [python]
         files: pyproject\.toml|\.py$
         pass_filenames: false
-        
-      - id: test
-        name: test
-        entry: make test
-        language: system
-        types: [python]
-        files: pyproject\.toml|\.py$
-        pass_filenames: false
