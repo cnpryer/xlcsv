@@ -25,6 +25,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
+      # Use Cargo to install rye
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
       - name: Setup python
         uses: actions/setup-python@v1
         with:
@@ -39,19 +45,17 @@ jobs:
           virtualenvs-in-project: true
           installer-parallel: true
 
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v2
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
-
       - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
+        run: cargo install --git https://github.com/mitsuhiko/rye -branch main
 
-      - name: Install library
-        run: poetry install --no-interaction
+      - name: Sync Python environment
+        run: rye sync
 
       - name: Run fmt check
         run: make fmt-check
+        
+      - name: Run lint
+        run: make lint && make lint-type
+
+      - name: Run tests
+        run: make test
