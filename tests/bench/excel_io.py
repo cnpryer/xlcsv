@@ -8,7 +8,6 @@ from typing import BinaryIO, Callable
 
 import pandas as pd  # type: ignore
 import polars as pl
-
 from xlcsv import to_csv_buffer
 
 DF_N = 10_000
@@ -77,7 +76,7 @@ def create_df(size: int = DF_N) -> pd.DataFrame:
     df = pd.DataFrame({ch: list(map(str, range(size))) for ch in "abcdefg"})
 
     return df
-    
+
 
 if __name__ == "__main__":
     main()

@@ -16,12 +16,7 @@ help:
 	@echo "  bench				run tests/bench/*"
 	@echo ""
 	@echo "Check the Makefile to know exactly what each target is doing."
-
-.venv:
-	@python -m venv .venv
-	@poetry install
-	@pre-commit install
-
+	
 clean:
 	-@rm -rf .venv
 	-@rm -fr `find . -name __pycache__`
@@ -30,28 +25,23 @@ clean:
 	-@rm -rf .ruff_cache
 
 lint: .venv
-	@poetry run ruff \
-		src \
-		tests
+	@rye run ruff check .
 
 lint-type: .venv
-	@poetry run mypy \
-		src \
-		tests
+	@rye run mypy src tests
 
-fmt: .venv
-	@poetry run isort .
-	@poetry run black .
+fmt: .venv lint
+	@rye run ruff check --select I --fix .
+	@rye run black .
 
 fmt-check: .venv
-	@poetry run isort . --check
-	@poetry run black . --check
+	@rye run ruff check --select I .
+	@rye run black . --check
 
 test: .venv
-	@poetry run pytest
+	@rye run pytest
 
 pre-commit: test fmt-check lint lint-type
-	
 
 bench:
-	@poetry run python tests/bench/excel_io.py
+	@rye run python tests/bench/excel_io.py

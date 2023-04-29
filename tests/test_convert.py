@@ -2,7 +2,6 @@ from io import StringIO
 from pathlib import Path
 
 import polars as pl
-
 from xlcsv.io import to_csv_buffer
 
 

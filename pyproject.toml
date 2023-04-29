@@ -1,30 +1,19 @@
-[tool.poetry]
+[project]
 name = "xlcsv"
-version = "0.3.0"
-description = "A Python micropackage for consuming Excel as CSV."
-repository = "https://github.com/cnpryer/xlcsv.git"
-readme = "./README.md"
-authors = ["Chris Pryer <cnpryer@gmail.com>"]
-license = "MIT"
-
-[tool.poetry.dependencies]
-python = "^3.8"
-openpyxl = "^3.1.0"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.1.2"
-black = "^22.3.0"
-isort = "^5.10.1"
-pre-commit = "^2.19.0"
-xlsx2csv = "^0.8.0"
-polars = "^0.16.2"
-pandas = "^1.5.3"
-mypy = "^0.991"
-ruff = "^0.0.240"
+version = "0.1.0"
+description = "Add a short description here"
+authors = [
+    { name = "Chris Pryer", email = "cnpryer@gmail.com" }
+]
+dependencies = ["openpyxl~=3.1.2"]
+readme = "README.md"
+requires-python = ">= 3.8"
+license = { text = "MIT" }
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.black]
-line-length = 79
+[tool.rye]
+managed = true
+dev-dependencies = ["pytest~=7.3.1", "ruff~=0.0.263", "black~=23.3.0", "mypy~=1.2.0", "polars~=0.17.9", "pandas~=2.0.1", "xlsx2csv~=0.8.1"]
