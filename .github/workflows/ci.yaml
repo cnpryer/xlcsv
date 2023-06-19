@@ -45,14 +45,17 @@ jobs:
         run: rye sync
 
       - name: Run fmt check
-        run: make fmt-check
+        run: |
+          rye run ruff check . --select I
+          rye run black . --check
         
       - name: Run lint
-        run: make lint && make lint-type
+        run: |
+          rye run mypy src tests
+          rye run ruff check . --select-extend I
 
       - name: Run tests
-        run: make test
+        run: rye run pytest
 
-      # bench for lols
       - name: Run bench
-        run: make bench
+        run: rye run python tests/bench/excel_io.py
